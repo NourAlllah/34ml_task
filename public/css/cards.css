@@ -1,0 +1,57 @@
+
+.wrapper {
+    border-radius: 5px;
+    display: inline-block;
+    background: #fff;
+    position: relative;
+    margin: 20px 50px;
+    width: 300px;
+    height: auto;
+    overflow: hidden;
+    box-shadow: 0px 1px 5px #999;
+  }
+  
+  .pic {
+    height: 180px;
+    padding: 0 0 20px 0;
+    margin-bottom: 35px;
+  }
+  
+  p.header {
+    padding: 0 20px;
+    font-size: 18px;
+    font-weight: bold;
+    font-style: italic;
+  }
+  
+  p.content {
+    padding: 0 20px;
+    font-size: 12px;
+    text-align: justify;
+  }
+  
+  a .readmore {
+    height: 40px;
+    width: 100px;
+    float: right;
+    padding-left: 10px;
+    line-height: 40px;
+    background-color: #8bc34a;
+    margin: 20px;
+    font-size: 12px;
+    border-radius: 5px;
+  }
+  
+  a .readmore:hover {
+    background-color: #9fdf55;
+  }
+  
+  a .readmore i {
+    color: #fff;
+    margin-left: 5px;
+    transition: cubic-bezier(0.68, -0.55, 0.27, 01.55) 320ms;
+  }
+  
+  a .readmore:hover i {
+    margin: 0 0 0 20px;
+  }
