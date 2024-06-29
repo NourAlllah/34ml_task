@@ -9,31 +9,31 @@ use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
-    public function show(Course $course)
+    public function show(Course $course, UserCourse $userCourse)
     {
-        $lessons = $course->lessons; // Retrieve lessons associated with the course
+         $user = Auth::user();
+
+        $course->enrolled = $userCourse::isUserEnrolledInCourse($user->id, $course->id);
+
+        $lessons = $course->lessons; 
+
         return view('course_details', compact('course', 'lessons'));
     }
 
     public function enroll(Request $request, Course $course)
     {
         $user = Auth::user();
+    
+        UserCourse::create([
+            'user_id' => $user->id,
+            'course_id' => $course->id,
+            'enrolled_at' => now()
+        ]);
 
-        // Check if the user is already enrolled in the course
-        $alreadyEnrolled = UserCourse::where('user_id', $user->id)
-                                     ->where('course_id', $course->id)
-                                     ->exists();
-
-        if (!$alreadyEnrolled) {
-           /*  UserCourse::create([
-                'user_id' => $user->id,
-                'course_id' => $course->id,
-                'enrolled_at' => now()
-            ]); */
-
-            return redirect()->back()->with('status', 'Successfully enrolled');
-        } else {
-            return redirect()->route('courses.show', $course->id)->with('status', 'You are already enrolled in this course');
-        }
+        return redirect()->back()
+        ->with('status', 'Enrolled!')
+        ->with('courseId', $course->id); 
+        
+       
     }
 }

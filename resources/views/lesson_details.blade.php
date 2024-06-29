@@ -14,19 +14,29 @@
                 @if (session('status') !== null)
                     @if (session('status') === true)
                         <div class="lesson_div">
-                            {{ session('status') }}
+                            {{ session('message') }}
                         </div> 
                         {{-- <div class="alert alert-success">
                             {{ session('message') }}
                         </div> --}}
-                    @else
-                        <div class="alert alert-warning">
-                            {{ session('message') }}
+
+                        <div class="input_comment">
+                            <input type="text" placeholder="Your comments matter...">
                         </div>
+
+                        
+                    @else
+                        <div class="lesson_div">
+                            {{ session('message') }}
+                        </div> 
+                        {{-- <div class="alert alert-warning">
+                            {{ session('message') }}
+                        </div> --}}
                     @endif
                 @endif
                 {{-- --}}
             
+                
         </div>
     </div>
 </x-app-layout>

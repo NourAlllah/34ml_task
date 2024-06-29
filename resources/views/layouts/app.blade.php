@@ -11,6 +11,7 @@
 
         <link rel="stylesheet" type="text/css" href="{{ asset('css/cards.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('css/course_details.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/lesson_details.css') }}">
 
 
         <!-- Scripts -->

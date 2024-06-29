@@ -19,13 +19,16 @@
                             {{ $lesson->content }} ( {{ $course->title }} )
                         </p>
                     </div>
-                    <form action="{{ route('lesson.watch', ['course' => $course->id, 'lesson' => $lesson->id]) }}" method="POST" style="display:inline;">
-                        @csrf
-                        <button type="submit" class="watch_button">Watch now</button>
-                    </form>
+                    
+                    @if ( $course->enrolled )
+                        <form action="{{ route('lesson.watch', ['course' => $course->id, 'lesson' => $lesson->id]) }}" method="POST" style="display:inline;">
+                            @csrf
+                            <button type="submit" class="watch_button">Watch now</button>
+                        </form>
+                    @endif
+                    
                 </div>
             @endforeach
-            
             
         </div>
     </div>

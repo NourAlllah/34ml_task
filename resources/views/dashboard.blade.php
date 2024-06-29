@@ -14,13 +14,24 @@
                         {{ $course->title }}
                     </p>
                     <p class="content">{{ $course->description }}</p>
-                    <a href="{{ route('courses.show', $course->id) }}">
+                    <a href="{{ route('courses.show', $course->id) }}" target="blank">
                         <div class="card__but view_course"><b>view course</b></div>
                     </a>
-                    <form action="{{ route('course.enroll', ['course' => $course->id]) }}" method="POST" >
-                        @csrf
-                        <button class="card__but enroll_now" type="submit"><b>Enroll Now</b></button>
-                    </form>
+                    @if ( !$course->enrolled )
+                        <form action="{{ route('course.enroll', ['course' => $course->id]) }}" method="POST" >
+                            @csrf
+                            <button class="card__but enroll_now" type="submit"  >
+                                    <b>Enroll Now</b>
+                            </button>
+                        </form>
+                    @else
+                        @if (session('status') && $course->id == session('courseId') )
+                            <button class="card__but enroll_now" type="submit"   disabled style="background-color: grey"  >
+                                <b> {{session('status')}} </b>
+                            </button>
+                        @endif
+                    @endif
+                    
                 </div>
             @endforeach
         </div>
