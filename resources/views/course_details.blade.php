@@ -11,7 +11,7 @@
 
             @foreach ($lessons as $lesson)
                 <div class="lesson_div">
-                    <div>
+                    <div class="marg_ver_20">
                         <h4 class="lesson_title">
                             {{ $lesson->title }}
                         </h4>
@@ -19,7 +19,10 @@
                             {{ $lesson->content }} ( {{ $course->title }} )
                         </p>
                     </div>
-                    <button class="watch_button">Watch now</button>
+                    <form action="{{ route('lesson.watch', ['course' => $course->id, 'lesson' => $lesson->id]) }}" method="POST" style="display:inline;">
+                        @csrf
+                        <button type="submit" class="watch_button">Watch now</button>
+                    </form>
                 </div>
             @endforeach
             
