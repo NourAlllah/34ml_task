@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LessonController;
@@ -19,8 +20,10 @@ Route::get('/courses/{course}', [CourseController::class, 'show'])->name('course
 Route::post('/courses/{course}/enroll', [CourseController::class, 'enroll'])->name('course.enroll');
 
 
-Route::get('/lessons/{lesson}', [LessonController::class, 'show'])->name('lessons.show');
 Route::post('/lessons/{lesson}/watch', [LessonController::class, 'watch'])->name('lesson.watch');
+Route::get('/lessons/{lesson}', [LessonController::class, 'show'])->name('lessons.show');
+
+Route::post('/submit_comment', [CommentController::class, 'submit'])->name('comment.submit');
 
 
 

@@ -54,4 +54,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Lesson::class, 'user_lessons')->withTimestamps();
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
