@@ -1,5 +1,5 @@
 
-.wrapper {
+  .wrapper {
     border-radius: 5px;
     display: inline-block;
     background: #fff;
@@ -12,7 +12,7 @@
   }
   
   .pic {
-    height: 180px;
+    height: 150px;
     padding: 0 0 20px 0;
     margin-bottom: 35px;
   }
@@ -30,28 +30,26 @@
     text-align: justify;
   }
   
-  a .readmore {
+  a .card__but {
     height: 40px;
     width: 100px;
     float: right;
-    padding-left: 10px;
     line-height: 40px;
-    background-color: #8bc34a;
+    background-color: #59c1ef;
     margin: 20px;
     font-size: 12px;
     border-radius: 5px;
   }
-  
-  a .readmore:hover {
-    background-color: #9fdf55;
+
+  .view_course {
+    padding-left: 17px;
+  }
+
+  .enroll_now{
+    padding-left: 1px;
   }
   
-  a .readmore i {
-    color: #fff;
-    margin-left: 5px;
-    transition: cubic-bezier(0.68, -0.55, 0.27, 01.55) 320ms;
+  a .card__but:hover {
+    background-color: #4dacd5;
   }
   
-  a .readmore:hover i {
-    margin: 0 0 0 20px;
-  }

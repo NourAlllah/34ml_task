@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>34ML-courses</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -18,7 +18,7 @@
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
             <div>
                 <a href="https://34ml.com/">
-                    <img src="{{ asset('34ML-Logo.png') }}" alt="Bluworks" style="width: 8rem;">
+                    <img src="{{ asset('34ML-Logo.png') }}" alt="34ML" style="width: 8rem;">
                 </a>
             </div>
 

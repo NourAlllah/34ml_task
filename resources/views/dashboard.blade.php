@@ -7,21 +7,21 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            
-            <div class="wrapper">
-                <div class="pic" style="background: url('https://www.filepicker.io/api/file/nsC57aJTOKA3okcoanwS') no-repeat;background-size: cover; "></div>
-                <p class="header">
-                  Title
-                </p>
-                <p class="content">This is a simple example of what a card can look like. it's simpple, elegant, functional and it simply does it's job because of this.
-                  <br/><br/> It can, for example, showcase a certain product, location, or any other thing you wish to sell or display.
-                  <br/><br/> Will this work? YES!<br/> You can make this as long as you want 😁
-                </p>
-                <a href="#_">
-                  <div class="readmore"><b>Enroll Now</b> <i class="fas fa-angle-right"></i></div>
-                </a>
-            </div>
-
+            @foreach ($courses as $course)
+                <div class="wrapper">
+                    <div class="pic" style="background: url('{{ url($course->image_url) }}') no-repeat;background-size: contain;"></div>
+                    <p class="header">
+                        {{ $course->title }}
+                    </p>
+                    <p class="content">{{ $course->description }}</p>
+                    <a href="{{ route('courses.show', $course->id) }}">
+                        <div class="card__but view_course"><b>view course</b></div>
+                    </a>
+                    <a href="#_">
+                        <button class="card__but enroll_now"><b>Enroll Now</b></button>
+                    </a>
+                </div>
+            @endforeach
         </div>
     </div>
 </x-app-layout>
