@@ -17,9 +17,10 @@
                     <a href="{{ route('courses.show', $course->id) }}">
                         <div class="card__but view_course"><b>view course</b></div>
                     </a>
-                    <a href="#_">
-                        <button class="card__but enroll_now"><b>Enroll Now</b></button>
-                    </a>
+                    <form action="{{ route('course.enroll', ['course' => $course->id]) }}" method="POST" >
+                        @csrf
+                        <button class="card__but enroll_now" type="submit"><b>Enroll Now</b></button>
+                    </form>
                 </div>
             @endforeach
         </div>

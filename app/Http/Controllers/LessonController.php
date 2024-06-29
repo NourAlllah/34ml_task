@@ -33,7 +33,7 @@ class LessonController extends Controller
             UserLesson::create([
                 'user_id' => $user->id,
                 'lesson_id' => $lesson->id,
-                'watched_at' => now(), // Add the current timestamp
+                'watched_at' => now(), 
             ]);
         } */
 

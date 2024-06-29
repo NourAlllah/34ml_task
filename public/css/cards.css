@@ -30,7 +30,7 @@
     text-align: justify;
   }
   
-  a .card__but {
+  .card__but {
     height: 40px;
     width: 100px;
     float: right;

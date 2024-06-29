@@ -12,10 +12,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::get('/dashboard',[UserController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
+
 Route::get('/courses/{course}', [CourseController::class, 'show'])->name('courses.show');
-/* Route::Post('/courses/{course}/lessons/{lesson}', [LessonController::class, 'show'])->name('lesson.watch');
- */
+Route::post('/courses/{course}/enroll', [CourseController::class, 'enroll'])->name('course.enroll');
+
 
 Route::get('/courses/{course}/lessons/{lesson}', [LessonController::class, 'show'])->name('lessons.show');
 Route::post('/lessons/{lesson}/watch', [LessonController::class, 'watch'])->name('lesson.watch');
