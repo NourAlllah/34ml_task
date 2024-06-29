@@ -22,6 +22,14 @@ class CommentController extends Controller
             'content' => $request->comment,
         ]);
 
+        //check achievemnts of user and update 
+                
+            $type = 'comment'; 
+
+            $achievementStatus = AchievementController::checkUpdateAcheivement($type);
+
+        //
+
         return back()->with('status', true)->with('message', 'Comment submitted successfully!');
     }
 }
