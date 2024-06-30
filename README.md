@@ -93,8 +93,19 @@ Response
         DB_HOST=127.0.0.1
         DB_PORT=3306
         DB_DATABASE=your_database_name
-        DB_USERNAME=your_database_username
-        DB_PASSWORD=your_database_password
+        DB_USERNAME=root
+        DB_PASSWORD=
+
+        MAIL_MAILER=smtp
+        MAIL_HOST=smtp.gmail.com
+        MAIL_PORT=587
+        MAIL_USERNAME=yourgmail@gmail.com
+        MAIL_PASSWORD=create this password using google app
+        MAIL_ENCRYPTION=tls
+        MAIL_FROM_ADDRESS=yourgmail@gmail.com
+        MAIL_FROM_NAME="${APP_NAME}"
+
+ ***adding gmail and password is important to push email notification, If the email was not received, check the logs of your email service provider.
 
 5- Generate Application Key:
 
@@ -103,6 +114,7 @@ Response
 6- php artisan migrate:
 
         php artisan migrate
+
 7- clearinf config cash:
 
         php artisan config:clear
@@ -113,6 +125,15 @@ Response
 8- Seed the database:
 
         php artisan db:seed
+
+9- install breeze dependencies 
+
+        php artisan breeze:install
+
+ answer the following 
+ - blade
+ - no
+ - 1
 
 9- Start the development server:
 
