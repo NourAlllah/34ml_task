@@ -29,7 +29,7 @@ class LessonController extends Controller
                                     ->where('lesson_id', $lesson->id)
                                     ->exists();
 
-        
+                                    
         if (!$alreadyWatched) {
 
             UserLesson::create([
@@ -38,7 +38,7 @@ class LessonController extends Controller
                 'watched_at' => now(), 
             ]);
 
-            //check achievemnts of user and update 
+            //check aa=chievemnts 
                 $type = 'lesson'; 
 
                 $achievementStatus = AchievementController::checkUpdateAcheivement($type);

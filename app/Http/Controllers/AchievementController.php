@@ -13,6 +13,50 @@ class AchievementController extends Controller
 {
 
     public function getAchievements(User $user){
+
+        //unlocked_achievements (string[ ])
+
+            $unlocked_achievements_data = UserAchievement::select('achievements.name', 'achievements.id' , 'achievements.type')
+            ->join('achievements', 'user_achievements.achievement_id', '=', 'achievements.id')
+            ->where('user_achievements.user_id', $user->id)
+            ->get();
+        
+            $unlocked_achievements = []; //required
+            
+            foreach ($unlocked_achievements_data as $achievement) {
+                $unlocked_achievements[] = $achievement['name'];
+            }
+
+        //next_available_achievements (string[ ])
+
+            $groupedByType = [];
+            foreach ($unlocked_achievements_data as $achievement) {
+                $type = $achievement['type'];
+                
+                $groupedByType[$type][] = $achievement;
+            }
+
+            $highestByType = [];
+            foreach ($groupedByType as $type => $achievements) {
+                $highestByType[$type] = max(array_values(array_column($achievements, 'id', 'id')));
+            }
+
+            $next_available_achievements = []; //required
+
+            foreach ($highestByType as $type => $id) {
+                $achievements = Achievement::select('achievements.*')
+                ->where('type', $type)
+                ->where('id', $id+1)
+                ->get();
+                if (count($achievements) > 0) {
+                    $next_available_achievements[] = $achievements->first()->name; 
+                }
+            }
+
+        //  current_badge (string)         
+        
+        
+            
         $achievements_types = ['lesson' =>'lessons' ,'comment'=>'comments'];
 
         foreach ($achievements_types as $type => $user_data ) {
