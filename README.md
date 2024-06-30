@@ -131,6 +131,7 @@ Response
 9- Start the development server:
 
         php artisan serve
+        npm run dev 
 
 10- Ensure that queue workers are running to handle jobs:
 
