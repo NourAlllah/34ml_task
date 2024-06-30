@@ -21,11 +21,8 @@ class AchievementController extends Controller
 
         //unlocked_achievements (string[ ])
 
-            $unlocked_achievements_data = UserAchievement::select('achievements.name', 'achievements.id' , 'achievements.type')
-            ->join('achievements', 'user_achievements.achievement_id', '=', 'achievements.id')
-            ->where('user_achievements.user_id', $user->id)
-            ->get();
-        
+            $unlocked_achievements_data = UserAchievement::get_unlocked_achievements_data($user->id);
+            
             $unlocked_achievements = []; //required
             
             foreach ($unlocked_achievements_data as $achievement) {
@@ -34,29 +31,7 @@ class AchievementController extends Controller
 
         //next_available_achievements (string[ ])
 
-            $groupedByType = [];
-            foreach ($unlocked_achievements_data as $achievement) {
-                $type = $achievement['type'];
-                
-                $groupedByType[$type][] = $achievement;
-            }
-
-            $highestByType = [];
-            foreach ($groupedByType as $type => $achievements) {
-                $highestByType[$type] = max(array_values(array_column($achievements, 'id', 'id')));
-            }
-
-            $next_available_achievements = []; //required
-
-            foreach ($highestByType as $type => $id) {
-                $achievements = Achievement::select('achievements.*')
-                ->where('type', $type)
-                ->where('id', $id+1)
-                ->get();
-                if (count($achievements) > 0) {
-                    $next_available_achievements[] = $achievements->first()->name; 
-                }
-            }
+            $next_available_achievements = $this->getNextAvailableAchievements($unlocked_achievements_data);
 
         //  current_badge (string)         
             $userbadges_data = UserBadge::select('badges.name', 'badges.id')
@@ -85,6 +60,35 @@ class AchievementController extends Controller
             'remaining_to_unlock_next_badge' => $remaining_to_unlock_next_badge
         ];
         
+    }
+
+    private function getNextAvailableAchievements($unlocked_achievements_data){
+
+        $groupedByType = [];
+        foreach ($unlocked_achievements_data as $achievement) {
+            $type = $achievement['type'];
+            
+            $groupedByType[$type][] = $achievement;
+        }
+
+        $highestByType = [];
+        foreach ($groupedByType as $type => $achievements) {
+            $highestByType[$type] = max(array_values(array_column($achievements, 'id', 'id')));
+        }
+
+        $next_available_achievements = []; //required
+
+        foreach ($highestByType as $type => $id) {
+            $achievements = Achievement::select('achievements.*')
+            ->where('type', $type)
+            ->where('id', $id+1)
+            ->get();
+            if (count($achievements) > 0) {
+                $next_available_achievements[] = $achievements->first()->name; 
+            }
+        }
+
+        return $next_available_achievements;
     }
 
     public static function checkUpdateAcheivement($type){

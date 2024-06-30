@@ -28,15 +28,6 @@ Route::post('/submit_comment', [CommentController::class, 'submit'])->name('comm
 use App\Mail\AchievementUnlocked;
 use Illuminate\Support\Facades\Mail;
 
-Route::get('/test-email', function () {
-    $user = \App\Models\User::first(); // or any specific user
-    $achievement = \App\Models\Achievement::first(); // or any specific achievement
-
-    Mail::to($user->email)->send(new AchievementUnlocked($user, $achievement));
-
-    return 'Email sent!';
-});
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
