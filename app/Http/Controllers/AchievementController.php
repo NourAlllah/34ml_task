@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
-use App\Models\UserAchievement;
 use App\Models\Achievement;
+use App\Models\Badge;
+
+use App\Models\UserAchievement;
+use App\Models\UserBadge;
+
+
 use Illuminate\Support\Facades\Auth;
 use App\Jobs\SendAchievementUnlockedEmail;
 
@@ -54,9 +59,31 @@ class AchievementController extends Controller
             }
 
         //  current_badge (string)         
-        
-        
-            
+            $userbadges_data = UserBadge::select('badges.name', 'badges.id')
+                ->join('badges', 'user_badges.badge_id', '=', 'badges.id')
+                ->orderBy('user_badges.created_at', 'desc')
+                ->limit(1)
+                ->get();
+
+            $current_badge =  $userbadges_data[0]->name; //required
+        // next_badge (string)
+            $next_badge_id = $userbadges_data[0]->id + 1;
+            $badge = Badge::find($next_badge_id);
+
+            $next_badge = $badge->name; //required
+        //  remaining_to_unlock_next_badge (int)
+            $numberCurrentAchievements = count($unlocked_achievements_data);
+            $nextBadgeAchievements = $badge->required_achievements;
+
+            $remaining_to_unlock_next_badge =  $nextBadgeAchievements - $numberCurrentAchievements ; //required 
+
+        return [
+            'unlocked_achievements'=> $unlocked_achievements,
+            'next_available_achievements' =>  $next_available_achievements,
+            'current_badge' => $current_badge,
+            'next_badge' => $next_badge,
+            'remaining_to_unlock_next_badge' => $remaining_to_unlock_next_badge
+        ];
         
     }
 
