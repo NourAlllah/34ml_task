@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Models\UserAchievement;
 use App\Models\Achievement;
 use Illuminate\Support\Facades\Auth;
+use App\Jobs\SendAchievementUnlockedEmail;
 
 use Illuminate\Http\Request;
 
@@ -36,6 +37,7 @@ class AchievementController extends Controller
 
         $userAchievements = Achievement::ofType($type)->get();
 
+        
         foreach ($userAchievements as $userAchievement_data) {
 
             if ($userAchievement_data->threshold <= count($user_data_actions)) {
@@ -52,7 +54,7 @@ class AchievementController extends Controller
                     ]);
 
                     // job of email 
-
+                        SendAchievementUnlockedEmail::dispatch($user, $userAchievement_data);
                     //
                 }
 

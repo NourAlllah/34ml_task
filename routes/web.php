@@ -25,6 +25,17 @@ Route::get('/lessons/{lesson}', [LessonController::class, 'show'])->name('lesson
 
 Route::post('/submit_comment', [CommentController::class, 'submit'])->name('comment.submit');
 
+use App\Mail\AchievementUnlocked;
+use Illuminate\Support\Facades\Mail;
+
+Route::get('/test-email', function () {
+    $user = \App\Models\User::first(); // or any specific user
+    $achievement = \App\Models\Achievement::first(); // or any specific achievement
+
+    Mail::to($user->email)->send(new AchievementUnlocked($user, $achievement));
+
+    return 'Email sent!';
+});
 
 
 Route::middleware('auth')->group(function () {
@@ -32,5 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
 
 require __DIR__.'/auth.php';
