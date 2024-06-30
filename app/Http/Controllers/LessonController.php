@@ -8,6 +8,7 @@ use App\Models\UserLesson;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AchievementController; 
+use App\Http\Controllers\BadgeController; 
 
 use function PHPSTORM_META\type;
 
@@ -28,8 +29,8 @@ class LessonController extends Controller
         $alreadyWatched = UserLesson::where('user_id', $user->id)
                                     ->where('lesson_id', $lesson->id)
                                     ->exists();
+        
 
-                                    
         if (!$alreadyWatched) {
 
             UserLesson::create([
@@ -38,11 +39,14 @@ class LessonController extends Controller
                 'watched_at' => now(), 
             ]);
 
-            //check aa=chievemnts 
+            //check achievemnts of user and update
                 $type = 'lesson'; 
 
-                $achievementStatus = AchievementController::checkUpdateAcheivement($type);
+                $userAchivements = AchievementController::checkUpdateAcheivement($type);
             //
+
+            // check badges and update 
+                 $userBadges = BadgeController::checkUpdateBadges($userAchivements);
                 
             return redirect()->route('lessons.show', [ 'lesson' => $lesson->id])->with('status', true)->with('message', 'Congratulations! you just watched another lesson..');
         }else{

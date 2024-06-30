@@ -57,14 +57,6 @@ class AchievementController extends Controller
         
         
             
-        $achievements_types = ['lesson' =>'lessons' ,'comment'=>'comments'];
-
-        foreach ($achievements_types as $type => $user_data ) {
-            
-                $data = $user->$user_data;
-                return $data;
-
-        }
         
     }
 
@@ -81,7 +73,6 @@ class AchievementController extends Controller
 
         $userAchievements = Achievement::ofType($type)->get();
 
-        
         foreach ($userAchievements as $userAchievement_data) {
 
             if ($userAchievement_data->threshold <= count($user_data_actions)) {
@@ -92,7 +83,7 @@ class AchievementController extends Controller
 
                 if (!$check_achievemnt_exist) {
 
-                    UserAchievement::create([
+                    $final_user_achievments= UserAchievement::create([
                         'user_id' => $user->id,
                         'achievement_id' => $userAchievement_data->id,
                     ]);
@@ -105,6 +96,11 @@ class AchievementController extends Controller
             }
 
         }
+
+        $all_user_achievements = UserAchievement::where('user_id', $user->id)->get();
+
+        return count($all_user_achievements);
+
 
     }
 }

@@ -30,6 +30,12 @@ class CommentController extends Controller
 
         //
 
+        // check badges and update 
+
+            $userBadges = BadgeController::checkUpdateBadges($achievementStatus);
+            
+        //
+
         return back()->with('status', true)->with('message', 'Comment submitted successfully!');
     }
 }
