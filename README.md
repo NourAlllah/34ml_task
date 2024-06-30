@@ -82,6 +82,7 @@ Response
 2- Install dependencies:
 
         composer install
+        npm install
 
 3- Configure the .env File:
   
@@ -126,14 +127,6 @@ Response
 
         php artisan db:seed
 
-9- install breeze dependencies 
-
-        php artisan breeze:install
-
- answer the following 
- - blade
- - no
- - 1
 
 9- Start the development server:
 
